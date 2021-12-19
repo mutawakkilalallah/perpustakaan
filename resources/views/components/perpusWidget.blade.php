@@ -65,7 +65,7 @@
 <div class="col-lg-3 col-6">
     <div class="small-box bg-info">
       <div class="inner">
-        <h3>118</h3>
+        <h3>{{ $person }}</h3>
 
         <p>Person</p>
       </div>

@@ -57,20 +57,6 @@
     <link rel="stylesheet" href="/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-      <!-- Preloader -->
-      <div
-        class="preloader flex-column justify-content-center align-items-center"
-      >
-        <img
-          class="animation__shake"
-          src="/img/logo.png"
-          alt="AdminLTELogo"
-          height="60"
-          width="60"
-        />
-      </div>
-    </div>
 
     @include('components.navbar')
     @include('components.sidebar')
@@ -84,9 +70,20 @@
     <div id="success" data-success="{{ session('success') }}"></div>
     @endif
 
+    @if (session()->has('code'))
+    <div id="code" data-code="{{ session('code') }}"></div>
+    @endif
+
+    @if (session()->has('status'))
+    <div id="status" data-status="{{ session('status') }}"></div>
+    @endif
+
+    @if (session()->has('message'))
+    <div id="message" data-message="{{ session('message') }}"></div>
+    @endif
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper text-sm pt-5" style="background-color: #fff">
-      
           @yield('content')
     </div>
     <!-- /.content-wrapper -->
@@ -165,24 +162,38 @@
     // invalid alert
     const invalid = $('#invalid').data('invalid');
 
-      if (invalid) {
-        Swal.fire({
+    if (code) {
+      Swal.fire({
         icon: 'error',
         title: 'Terjadi Kesalahan',
         text: "Pesan : " + invalid,
         confirmButtonColor: '#d9534f',
         })
-      }
+    }
 
-      // success alert
-      const success = $('#success').data('success');
+    // success alert
+    const success = $('#success').data('success');
       
-      if (success) {
+    if (success) {
+      Swal.fire({
+      icon: 'success',
+      title: 'Selamat !!',
+      text: "Pesan : " + success,
+      confirmButtonColor: '#5cb85c',
+      })
+    }
+
+    // alert api
+    var code = $('#code').data('code');
+    var status = $('#status').data('status');
+    const message = $('#message').data('message');
+
+      if (code) {
         Swal.fire({
-        icon: 'success',
-        title: 'Selamat !!',
-        text: "Pesan : " + success,
-        confirmButtonColor: '#5cb85c',
+        icon: 'error',
+        title: code + " " + status,
+        text: "Pesan : " + message,
+        confirmButtonColor: '#d9534f',
         })
       }
   })

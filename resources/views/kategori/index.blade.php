@@ -13,31 +13,22 @@
   <div class="container-fluid">
     <div class="row mb-3">
       <div class="col-sm-6">
-        <h1 class="m-0 text-bold">Master Data Kelas</h1>
+        <h1 class="m-0 text-bold">{{ $title }}</h1>
       </div>
     </div>
     <form action="/master-data/kelas/" method="get">
       <div class="form-row">
         <div class="form-group col-md-3">
-          <select id="inputState" class="form-control form-control-sm" name="jenis_kelamin">
-            <option selected value="{{ request('jenis_kelamin') }}">{{ (request('jenis_kelamin') ? (request('jenis_kelamin') === "L" ? "Putra" : "Putri") : "-- Pilih Kategori --") }}</option>
-              <option value="L">Putra</option>
-              <option value="P">Putri</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-3">
-          <input type="text" class="form-control form-control-sm" name="search" value="{{ request('search') }}" autocomplete="off" placeholder="Cari santri ..">
+          <input type="text" class="form-control form-control-sm" name="search" value="{{ request('search') }}" autocomplete="off" placeholder="Cari kategori ..">
         </div>
         <div class="form-group col-md-3">
           <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-search"></i></button>
-          <a href="/master-data/kelas/" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></a>
+          <a href="/master-data/kategori/" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></a>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-3">
-          <a href="/master-data/kelas/tambah" class="btn btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Kelas</a>
+          <a href="/master-data/kategori/tambah" class="btn btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Kategori</a>
         </div>
       </div>
     </form>
@@ -52,24 +43,22 @@
           <tr>
             <th scope="col">No</th>
             <th scope="col">Nama</th>
-            <th scope="col">Kategori</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($data as $i => $d)
+          @foreach ($kategori as $i => $ktg)
           <tr id="detail" data-toggle="modal" data-target="#modal-lg"
-          data-id="{{ $d->id }}"
-          data-nama="{{ $d->nama }}"
-          data-jenis_kelamin="{{ ($d->jenis_kelamin === "L" ? "Putra" : "Putri") }}">
-            <th scope="row">{{ $data->firstItem() + $i }}</th>
-              <td>{{ $d->nama }}</td>
-              <td>{{ ($d->jenis_kelamin === "L" ? "Putra" : "Putri") }}</td>
+          data-id="{{ $ktg->id }}"
+          data-nama="{{ $ktg->nama }}"
+          >
+            <th scope="row">{{ $kategori->firstItem() + $i }}</th>
+              <td>{{ $ktg->nama }}</td>
           </tr>
           @endforeach
         </tbody>
       </table>
     </div>
-    {{ $data->links() }}
+    {{ $kategori->links() }}
   </div>
 </section>
 
@@ -78,7 +67,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Detail Master Data Kelas</h4>
+        <h4 class="modal-title">Detail Master Data Kategori</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -90,12 +79,6 @@
               <label for="nama" class="col-sm-3 col-form-label">Nama</label>
               <div class="col-sm-6">
                 <input type="text" readonly class="form-control-plaintext" id="nama">
-              </div>
-            </div>
-            <div class="form-group row mb-1">
-              <label for="jenis_kelamin" class="col-sm-3 col-form-label">Kategori</label>
-              <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" id="jenis_kelamin">
               </div>
             </div>
           </div>
@@ -119,11 +102,9 @@
     $(document).on('click', '#detail', function() {
       var id = $(this).data('id');
       var nama = $(this).data('nama');
-      var jenis_kelamin = $(this).data('jenis_kelamin');
-      $('#edit').attr({href: "/master-data/kelas/edit/" + id});
-      $('#delete').attr({href: "/master-data/kelas/delete/" + id});
+      $('#edit').attr({href: "/master-data/kategori/edit/" + id});
+      $('#delete').attr({href: "/master-data/kategori/delete/" + id});
       $('#nama').val(nama);
-      $('#jenis_kelamin').val(jenis_kelamin);
     })
   })
 

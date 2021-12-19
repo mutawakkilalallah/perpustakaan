@@ -6,7 +6,7 @@ use App\Models\Kamar;
 use App\Models\Kelas;
 use App\Models\Anggota;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Carbon as Carbon;
+use SimpleSoftwareIO\QrCode\Facades\QrCode as QrCode;
 
 class AnggotaController extends Controller
 {

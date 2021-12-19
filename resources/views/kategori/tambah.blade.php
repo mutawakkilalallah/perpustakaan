@@ -13,8 +13,7 @@
 </div>
 <section class="content">
   <div class="container-fluid">
-    <form action="/master-data/kelas/update/{{ $data->id }}" method="POST">
-      @method('put')
+    <form action="/master-data/kategori/save" method="POST">
       @csrf
       @if ($errors->any())
         @foreach ($errors->all() as $error)
@@ -24,17 +23,13 @@
       <div class="row mb-3">
         <label for="nama" class="col-sm-2 col-form-label">Nama</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control form-control-sm" value="{{ (old('nama') ? old('nama') : $data->nama) }}" id="nama" name="nama" autocomplete="off" placeholder="Masukkan nama ..">
+          <input type="text" class="form-control form-control-sm" value="{{ old('nama')  }}" id="nama" name="nama" autocomplete="off" placeholder="Masukkan nama ..">
         </div>
       </div>
       <div class="row mb-3">
-        <label for="jenis_kelamin" class="col-sm-2 col-form-label">Kategori</label>
+        <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Nama</label>
         <div class="col-sm-10">
-          <select class="form-control form-control-sm" name="jenis_kelamin" style="width: 100%;">
-            <option selected value="{{ (old('jenis_kelamin')  ? old('jenis_kelamin')  : $data->jenis_kelamin) }}">{{ (old('jenis_kelamin') ? (old('jenis_kelamin') == "L" ? "Putra" : "Putri") :  ($data->jenis_kelamin == "L" ? "Putra" : "Putri") ) }}</option>
-              <option value="L">Putra</option>
-              <option value="P">Putri</option>
-          </select>
+          <input type="file" class="form-control-file" id="exampleFormControlFile1">
         </div>
       </div>
       <button type="submit" class="btn btn-success">Simpan</button>

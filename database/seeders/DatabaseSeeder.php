@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            KategoriSeeder::class
+        ]);
+
         // seeder kelas
         Kelas::create([
             "nama" => "X PK I",

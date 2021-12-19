@@ -1,11 +1,17 @@
 <?php
 
 use App\Models\Anggota;
+use App\Models\User;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AnggotaController;
-use App\Http\Controllers\KelasController;
+use App\Http\Controllers\KategoriController;
+
+use App\Http\Controllers\ApiController;
+
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,27 +74,28 @@ Route::post('/logout', [LoginController::class, 'logout']);
 // Router untuk mengelola master data
 
 
-// Master Data Kelas 
+// Master Data kategori 
 
-// route halaman data master data kelas
-Route::get('/master-data/kelas', [KelasController::class, 'getKelas'])->middleware('auth');
+// route halaman data master data kategori
+Route::get('/master-data/kategori', [KategoriController::class, 'getKategori'])->middleware('auth');
 
-// route halaman tambah master data kelas
-Route::get('/master-data/kelas/tambah/', [KelasController::class, 'tambahKelas'])->middleware('auth');
+// route halaman tambah master data kategori
+Route::get('/master-data/kategori/tambah/', [KategoriController::class, 'tambahKategori'])->middleware('auth');
 
-// route simpan master data kelas
-Route::post('/master-data/kelas/save/', [KelasController::class, 'saveKelas']);
+// route simpan master data Kategori
+Route::post('/master-data/kategori/save/', [KategoriController::class, 'saveKategori']);
 
-// route halaman edit master data kelas
-Route::get('/master-data/kelas/edit/{kelas}', [KelasController::class, 'editKelas'])->middleware('auth');
+// route halaman edit master data kategori
+Route::get('/master-data/kategori/edit/{kategori}', [KategoriController::class, 'editKategori'])->middleware('auth');
 
-// route update master data kelas
-Route::put('/master-data/kelas/update/{kelas}', [KelasController::class, 'updateKelas']);
+// route update master data kategori
+Route::put('/master-data/kategori/update/{kategori}', [KategoriController::class, 'updateKategori']);
 
-// route delete master data kelas
-Route::get('/master-data/kelas/delete/{kelas}', [KelasController::class, 'deleteKelas']);
+// route delete master data kategori
+Route::get('/master-data/kategori/delete/{kategori}', [KategoriController::class, 'deleteKategori']);
 
 //-------------------------------------------------------------- 
+
 
 
 
@@ -99,10 +106,17 @@ Route::get('/master-data/kelas/delete/{kelas}', [KelasController::class, 'delete
 // Route::post('/siswa/save', [AnggotaController::class, 'save']);
 
 Route::get('/', function () {
+    
     return view('dashboard', [
         "title" => "Dashboard",
         "user" => Anggota::where('uuid', auth()->user()->uuid_user)->first(),
+        "person" => Anggota::all()->count(),
+        "siswa" => Anggota::all()->where('status', 'siswa')->count(),
+        "pengurus" => Anggota::all()->where('status', 'pengurus')->count(),
+        "userCount" => User::all()->where('status', 'pengurus')->count(),
+        "kategori" => Kategori::all()->count(),
     ]);
+
 })->middleware('auth');
 
 Route::get('/maintenance', function () {

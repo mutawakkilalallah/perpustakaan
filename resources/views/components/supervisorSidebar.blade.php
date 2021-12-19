@@ -47,12 +47,6 @@
         @endif
       </a>
     </li>
-    <li class="nav-item">
-      <a href="/maintenance" class="nav-link">
-        <i class="nav-icon fas fa-user-graduate"></i>
-        <p>Alumni & Simpatisan</p>
-      </a>
-    </li>
 
 <li class="nav-header">KEPUSTAKAAN</li>
     <li class="nav-item">

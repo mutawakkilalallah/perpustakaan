@@ -13,7 +13,7 @@
   <div class="container-fluid">
     <div class="row mb-3">
       <div class="col-sm-6">
-        <h1 class="m-0 text-bold">Data Siswa/i</h1>
+        <h1 class="m-0 text-bold">{{ $title }}</h1>
       </div>
     </div>
     <form action="/user" method="get">
